@@ -54,6 +54,7 @@ export interface Profile {
   bio?: string;
   avatar_url?: string;
   github_url?: string;
+  linkedin_url?: string;
   portfolio_url?: string;
   created_at: string;
   updated_at: string;

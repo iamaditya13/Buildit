@@ -44,7 +44,7 @@ export function CreateProjectForm() {
         github_url: formData.githubUrl || null, live_url: formData.liveUrl || null, tags,
       }).select().single();
       if (err) throw err;
-      router.push(`/projects/${data.id}`);
+      router.push(`/project/${data.id}`);
     } catch (err) { setError(err instanceof Error ? err.message : 'An error occurred'); }
     finally { setLoading(false); }
   };
@@ -112,7 +112,7 @@ export function CreateProjectForm() {
       </div>
 
       <Button type="submit" disabled={loading} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-sm font-semibold glow-blue-sm min-h-[48px]">
-        {loading ? 'Creating...' : '🚀 Launch Project'}
+        {loading ? 'Creating...' : 'Launch Project'}
       </Button>
     </motion.form>
   );

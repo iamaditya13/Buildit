@@ -16,13 +16,13 @@ export function EditProfileForm({ userId }: EditProfileFormProps) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [formData, setFormData] = useState({ username: '', fullName: '', bio: '', avatarUrl: '', githubUrl: '', portfolioUrl: '' });
+  const [formData, setFormData] = useState({ username: '', fullName: '', bio: '', avatarUrl: '', githubUrl: '', linkedinUrl: '', portfolioUrl: '' });
 
   useEffect(() => { loadProfile(); }, [userId]);
 
   const loadProfile = async () => {
     const { data } = await supabase.from('profiles').select('*').eq('id', userId).single();
-    if (data) setFormData({ username: data.username || '', fullName: data.full_name || '', bio: data.bio || '', avatarUrl: data.avatar_url || '', githubUrl: data.github_url || '', portfolioUrl: data.portfolio_url || '' });
+    if (data) setFormData({ username: data.username || '', fullName: data.full_name || '', bio: data.bio || '', avatarUrl: data.avatar_url || '', githubUrl: data.github_url || '', linkedinUrl: data.linkedin_url || '', portfolioUrl: data.portfolio_url || '' });
     setLoading(false);
   };
 
@@ -31,7 +31,7 @@ export function EditProfileForm({ userId }: EditProfileFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setError(null); setSuccess(false); setSaving(true);
     try {
-      const { error: err } = await supabase.from('profiles').update({ full_name: formData.fullName || null, bio: formData.bio || null, avatar_url: formData.avatarUrl || null, github_url: formData.githubUrl || null, portfolio_url: formData.portfolioUrl || null, updated_at: new Date().toISOString() }).eq('id', userId);
+      const { error: err } = await supabase.from('profiles').update({ full_name: formData.fullName || null, bio: formData.bio || null, avatar_url: formData.avatarUrl || null, github_url: formData.githubUrl || null, linkedin_url: formData.linkedinUrl || null, portfolio_url: formData.portfolioUrl || null, updated_at: new Date().toISOString() }).eq('id', userId);
       if (err) throw err;
       setSuccess(true);
       setTimeout(() => router.push(`/profile/${userId}`), 1000);
@@ -76,6 +76,11 @@ export function EditProfileForm({ userId }: EditProfileFormProps) {
         <FieldGroup>
           <FieldLabel htmlFor="githubUrl">GitHub URL</FieldLabel>
           <Input id="githubUrl" name="githubUrl" type="url" placeholder="https://github.com/..." value={formData.githubUrl} onChange={handleChange} disabled={saving}
+            className="bg-input border-border focus:ring-primary/50" />
+        </FieldGroup>
+        <FieldGroup>
+          <FieldLabel htmlFor="linkedinUrl">LinkedIn URL</FieldLabel>
+          <Input id="linkedinUrl" name="linkedinUrl" type="url" placeholder="https://linkedin.com/in/..." value={formData.linkedinUrl} onChange={handleChange} disabled={saving}
             className="bg-input border-border focus:ring-primary/50" />
         </FieldGroup>
         <FieldGroup>
