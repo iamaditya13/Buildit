@@ -18,8 +18,8 @@ export function BottomNav() {
   const { user } = useAuth();
 
   const getHref = (item: typeof navItems[0]) => {
-    if (item.href === '/profile' && user) return `/profile/${user.id}`;
-    if (item.href === '/submit' && !user) return '/auth/signin';
+    if (item.href === '/profile') return user ? `/profile/${user.id}` : '/auth/signin';
+    if (item.href === '/submit') return user ? '/submit' : '/auth/signin';
     return item.href;
   };
 
