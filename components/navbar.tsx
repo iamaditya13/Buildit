@@ -58,8 +58,7 @@ export function Navbar() {
           {!loading && user ? (
             <>
               <Link href="/projects/create">
-                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 gap-1.5">
-                  <Plus size={15} />
+                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Post a Project
                 </Button>
               </Link>
